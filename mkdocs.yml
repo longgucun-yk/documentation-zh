@@ -71,6 +71,7 @@ theme:
 extra_javascript:
     - javascripts/toc.js
     - javascripts/nav-toc.js
+    - javascripts/ask-ai-widget.js
     - 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'
 
 extra_css:
