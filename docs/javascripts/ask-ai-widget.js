@@ -2,8 +2,8 @@
   'use strict';
 
   // ── Configuration ──────────────────────────────────────────────────────────
-  var API_URL    = 'COMMUNITY_QA_API_PLACEHOLDER/v1/ask';
-  var API_KEY    = 'COMMUNITY_QA_KEY_PLACEHOLDER';
+  var API_URL    = 'https://sought-tower-ringtone-billing.trycloudflare.com/v1/ask';
+  var API_KEY    = 'a345b897dda27088135608941122a2ab4362b03c2635bd92eff150c839151a57';
   var ORIGIN_RE  = /https?:\/\/tronprotocol\.github\.io\/documentation-zh/g;
   var FORK_ORIGIN = 'https://longgucun-yk.github.io/documentation-zh';
 
