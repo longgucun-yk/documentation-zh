@@ -1,0 +1,2627 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://longgucun-yk.github.io/documentation-zh/mechanism-algorithm/resource/">
+      
+      
+        <link rel="prev" href="../account/">
+      
+      
+        <link rel="next" href="../../contracts/contract/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.8">
+    
+    
+      
+        <title>资源模型 - java-tron</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8608ea7d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="java-tron" class="md-header__button md-logo" aria-label="java-tron" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            java-tron
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              资源模型
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/longgucun-yk/documentation-zh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="java-tron" class="md-nav__button md-logo" aria-label="java-tron" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    java-tron
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/longgucun-yk/documentation-zh" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    java-tron入门
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    java-tron入门
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/getting_started_with_javatron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    入门
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    使用java-tron
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    使用java-tron
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/installing_javatron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    部署
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/backup_restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    备份和恢复
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/litefullnode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    轻节点
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/private_network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    私链网络
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/event/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    事件订阅
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    数据库配置
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/connecting_to_tron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    网络连接
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/metrics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    节点监控
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../using_javatron/toolkit/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    节点维护工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API接口
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API接口
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/http/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    HTTP 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/rpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gRPC 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/json-rpc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    jsonRPC 接口
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心协议
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    核心协议
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dpos/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    波场共识
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    超级代表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../account/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    账户模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源模型
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    资源模型
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item ">
+  <a href="#_2" class="md-nav__link" >
+    <span class="md-ellipsis">
+      资源模型介绍
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item ">
+  <a href="#_3" class="md-nav__link" >
+    <span class="md-ellipsis">
+      投票权
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_4" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      带宽
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="带宽" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_5" class="md-nav__link" >
+    <span class="md-ellipsis">
+      获取带宽
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_6" class="md-nav__link" >
+    <span class="md-ellipsis">
+      带宽的消耗规则详解
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_7" class="md-nav__link" >
+    <span class="md-ellipsis">
+      带宽的自动恢复
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_8" class="md-nav__link" >
+    <span class="md-ellipsis">
+      账户带宽余额查询
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_9" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      能量
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="能量" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_10" class="md-nav__link" >
+    <span class="md-ellipsis">
+      能量的获取与消耗
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#fee_limit" class="md-nav__link" >
+    <span class="md-ellipsis">
+      如何填写 fee_limit (用户必读)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#tron" class="md-nav__link" >
+    <span class="md-ellipsis">
+      TRON 网络能量消耗机制
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#_17" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      动态能量模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="动态能量模型" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_18" class="md-nav__link" >
+    <span class="md-ellipsis">
+      工作原理
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item has-children">
+  <a href="#tron_1" class="md-nav__link" onclick="toggleChildren(event)" aria-expanded="false">
+    <span class="md-ellipsis">
+      在 TRON 网络上质押
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="在 TRON 网络上质押" hidden>
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item ">
+  <a href="#_19" class="md-nav__link" >
+    <span class="md-ellipsis">
+      如何质押获取系统资源
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_21" class="md-nav__link" >
+    <span class="md-ellipsis">
+      如何代理资源
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_22" class="md-nav__link" >
+    <span class="md-ellipsis">
+      如何解质押
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_24" class="md-nav__link" >
+    <span class="md-ellipsis">
+      如何取消全部解质押
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#_25" class="md-nav__link" >
+    <span class="md-ellipsis">
+      取消资源代理时的资源回收
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item ">
+  <a href="#api" class="md-nav__link" >
+    <span class="md-ellipsis">
+      相关 API 接口
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contracts/contract/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    智能合约
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-contracts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    系统合约
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dex/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    去中心化交易所
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-signatures/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    账户权限管理
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    java-tron开发
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    java-tron开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/java-tron/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发者指南
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/tips/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    TIPs工作流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/issue-workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Issue工作流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/governance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    治理流程
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/run-in-idea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    配置IDE开发环境
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/demo/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    开发示例
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../developers/code-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    核心模块
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dapp开发
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Dapp开发
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contracts/tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    工具
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    客户端
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    客户端
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../clients/wallet-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    wallet-cli
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    版本发布
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    版本发布
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/upgrade-instruction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    新版本部署手册
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/signature_verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    一致性检验
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/history/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    历史版本
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    附录
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    附录
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../glossary/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    术语表
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="_1">资源模型<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">资源模型介绍<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p>TRON 网络的核心系统资源由三部分构成：投票权 (TRON Power, TP)、带宽 (Bandwidth) 和 能量 (Energy)。它们各自的定义和用途如下：</p>
+<ul>
+<li><strong>投票权 (TRON Power, TP)</strong>: 用户通过质押 TRX 获得的治理凭证，用于为超级代表 (Super Representative, SR) 选举中的候选人（Candidate）投票，以决定每个周期的 SR 及超级代表合伙人 (Partner)。</li>
+<li><strong>带宽 (Bandwidth)</strong>: 衡量交易数据在区块链上占用的字节大小。任何类型的交易（无论是普通转账还是合约交互）都必须消耗带宽。</li>
+<li><strong>能量 (Energy)</strong>: 衡量智能合约在 TRON 虚拟机 (TVM) 中执行所需消耗的计算资源，可理解为“CPU 算力费”。能量仅在部署或执行智能合约时才会被消耗。</li>
+</ul>
+<h2 id="_3">投票权<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p>任何账户在给超级代表投票前，都需要先获得投票权，即 TRON Power (TP)。</p>
+<ul>
+<li><strong>获取方式</strong>：当通过质押 TRX 来换取带宽或能量时，同时会获得与质押 TRX 等量的 TP，这是获取 TP 的唯一途径。关于如何质押请参考 <a href="#staking-on-tron">在 TRON 网络上质押</a> 章节。</li>
+<li><strong>兑换比例</strong>：质押与 TP 的兑换比例为 1 : 1。即每质押 1 TRX，便会获得 1 TP。</li>
+<li><strong>累加特性</strong>：您可以分批多次进行质押。所有质押所获得的 TP 都会自动累加，计入您账户的总 TP 池中。</li>
+<li><strong>查询接口</strong>：您随时可以通过 <code>wallet/getaccountresource</code> API 接口，查询自己账户当前拥有的总 TP 以及已使用的 TP 数量。</li>
+</ul>
+<h2 id="_4">带宽<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p>交易以字节数组的形式在网络中传输及存储。一条交易消耗的带宽（Bandwidth） = <code>交易字节数 * Bandwidth 费率</code>，当前 Bandwidth 费率 = 1。</p>
+<p>假如一条交易的字节数为 200，那么该交易需要消耗 200 带宽。</p>
+<blockquote>
+<p><strong>注意</strong>：由于网络中总质押资金以及账户的质押资金随时可能发生变化，因此账户拥有的带宽不是固定值。</p>
+</blockquote>
+<h3 id="_5">获取带宽<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>带宽可通过以下三种方式获取：</p>
+<ul>
+<li><strong>通过质押 TRX 获取</strong>：用户根据其为获取带宽而质押的 TRX 数量，按比例分享一个全网固定的总带宽池。
+    <div class="highlight"><pre><span></span><code>额度 = (为获取带宽质押的 TRX / 整个网络为获取带宽质押的 TRX 总额) * (Bandwidth 总量) 
+</code></pre></div>
+    <strong>Bandwidth 总量</strong>是一个可通过委员会提案修改的网络参数（<a href="https://tronscan.io/#/sr/committee">#62</a>），目前的值是 43,200,000,000。
+    质押获取带宽操作 (<code>wallet-cli</code> 示例)
+    <div class="highlight"><pre><span></span><code>freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY] 
+</code></pre></div></li>
+<li>
+<p><strong>通过他人代理获取</strong>：另一个帐户可以将其带宽委托给您。</p>
+<p>代理获取带宽操作 (<code>wallet-cli</code> 示例)
+<div class="highlight"><pre><span></span><code>delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY),   ReceiverAddress [lock]
+</code></pre></div>
+- <strong>获取每日固定免费额度</strong>：每个账户每日可获得的固定免费带宽量。该额度是一个可通过委员会提案修改的网络参数（<a href="https://tronscan.io/#/sr/committee">#61</a>），当前值为 600。</p>
+</li>
+</ul>
+<h3 id="_6">带宽的消耗规则详解<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<p>除了查询操作，任何交易都需要消耗带宽。当您发起一笔交易时，系统会根据交易类型的不同，遵循一套严格的优先级顺序来扣除带宽费用。</p>
+<p><strong>场景一：普通交易</strong></p>
+<p>系统将按以下顺序尝试支付带宽费用：</p>
+<ol>
+<li>消耗质押带宽：优先消耗发起者通过质押 TRX 获得的带宽。</li>
+<li>消耗免费带宽：其次消耗交易发起者的 600 每日免费带宽。</li>
+<li>燃烧 TRX 支付：若以上两者均不足，则会燃烧交易发起者的 TRX 来支付。<ul>
+<li><em><code>燃烧费用 = 交易字节数 × 1,000 sun</code></em></li>
+</ul>
+</li>
+</ol>
+<p><strong>场景二：创建新账户的交易</strong></p>
+<p>创建新账户的交易在支付带宽时有其特殊规则，不使用每日免费带宽：</p>
+<ol>
+<li>消耗质押带宽：优先尝试消耗交易发起者通过质押 TRX 获得的带宽。</li>
+<li>燃烧 TRX 支付：若质押带宽不足，则直接燃烧 0.1 TRX 作为费用来完成账户创建。</li>
+</ol>
+<p><strong>场景三：TRC-10 通证转账</strong></p>
+<p>TRC-10 通证（Token）转账的消耗逻辑最为特殊，它引入了“通证发行方”作为潜在的费用承担者：</p>
+<ol>
+<li>消耗发行方带宽 (优先)：系统首先会尝试消耗由通证发行方为该通证预付的带宽。这需要同时满足三个条件（只有当这三项检查全部通过时，才会扣除发行方的带宽。否则，进入下一步，由转账发起者自己支付）：<ul>
+<li>通证发行方剩余额度充足<ul>
+<li>查询方式：<a href="https://developers.tron.network/reference/getassetissuebyaccount">/wallet/getassetissuebyaccount</a> </li>
+<li>计算公式： <code>public_free_asset_net_limit - public_free_asset_net_usage</code></li>
+<li>含义：通证发行方能为该通证转账支付的剩余额度</li>
+</ul>
+</li>
+<li>转账发起者的个人额度充足<ul>
+<li>查询方式：<a href="https://developers.tron.network/reference/getaccountnet">/wallet/getaccountnet</a> </li>
+<li>计算公式： <code>assetNetLimit['assetID'] - assetNetUsed['assetID']</code></li>
+<li>含义：该通证持有者还能使用的由发行方提供的免费带宽额度</li>
+</ul>
+</li>
+<li>通证发行方通过质押获取的带宽充足<ul>
+<li>查询方式：<a href="https://developers.tron.network/reference/getaccountnet">/wallet/getaccountnet</a> </li>
+<li>计算公式： <code>NetLimit - NetUsed</code></li>
+<li>含义：发行方通过质押获取的可用带宽数额</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>消耗发起者质押带宽：尝试消耗交易发起者通过质押 TRX 获得的带宽。
+若质押带宽不足，则进入下一步。</li>
+<li>消耗发起者免费带宽：如果免费带宽也不足，则进入下一步。</li>
+<li>燃烧 TRX 支付：若以上所有带宽资源均不足，则会燃烧发起者的 TRX 来支付费用。</li>
+<li><em>燃烧费用 = 交易字节数 × 1,000 sun</em></li>
+</ol>
+<h3 id="_7">带宽的自动恢复<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>账户的免费带宽和质押 TRX 获取的带宽消耗后，会在 24 小时内逐步恢复。</p>
+<h3 id="_8">账户带宽余额查询<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>您可以通过调用 <code>wallet/getaccountresource</code> HTTP 接口来获取一个账户当前的资源状态。在返回的 JSON 数据中，您可以使用以下公式来精确计算两种带宽的剩余额度。</p>
+<p><div class="highlight"><pre><span></span><code>免费带宽余额 = freeNetLimit - freeNetUsed
+通过质押获取的带宽余额 = NetLimit - NetUsed
+</code></pre></div>
+<em>注：如果接口返回的结果中没有包含上述公式中的参数，表示该参数值为 <code>0</code>。</em></p>
+<h2 id="_9">能量<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<p>能量 (Energy) 是在 TRON 虚拟机（TVM）中执行智能合约指令时所需消耗的计算资源的计量单位。本章将从以下三个方面全面介绍能量这一核心资源：</p>
+<ul>
+<li><a href="#get-energy">能量的获取、消耗与恢复</a></li>
+<li><a href="#set-fee-limit">如何设置关键参数 <code>fee_limit</code></a></li>
+<li><a href="#energy-mechanism">TRON 网络的整体消耗机制</a></li>
+</ul>
+<p><a id="get-energy"></a></p>
+<h3 id="_10">能量的获取与消耗<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<p>获取能量有两种方式，一种是通过质押 TRX （即将持有的 TRX 锁定，作为抵押）获取，另外一种是通过他人代理获取。通过质押，用户可以按其贡献比例，分享一个全网固定的总能量池。</p>
+<p>获取能量主要有两种方式：</p>
+<ul>
+<li>通过质押 TRX 获取：用户通过质押自己持有的 TRX 获取能量。</li>
+<li>通过他人代理获取：从其他账户接收其代理的能量。</li>
+</ul>
+<h4 id="wallet-cli">质押获取能量操作 (<code>wallet-cli</code> 示例)<a class="headerlink" href="#wallet-cli" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>freezeBalanceV2 frozen_balance [ResourceCode:0 BANDWIDTH,1 ENERGY]
+</code></pre></div>
+<h4 id="wallet-cli_1">代理获取能量操作 (<code>wallet-cli</code> 示例)<a class="headerlink" href="#wallet-cli_1" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code>delegateResource [OwnerAddress] balance ResourceCode(0 BANDWIDTH,1 ENERGY), ReceiverAddress [lock]
+</code></pre></div>
+<h4 id="_11">账户能量余额查询<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>您可以通过调用 <code>wallet/getaccountresource</code> HTTP 接口来查询一个账户当前的能量资源状态。在返回的 JSON 数据中，然后通过如下公式计算能量余额：</p>
+<div class="highlight"><pre><span></span><code>能量余额 = EnergyLimit - EnergyUsed
+</code></pre></div>
+<p>注：如果接口返回的结果中没有包含上述公式中的参数，表示该参数值为 <code>0</code>。</p>
+<h4 id="_12">能量额度计算<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p>您能获得的能量额度是一个动态值，它根据您的质押占全网总能量质押的比例实时计算：
+<div class="highlight"><pre><span></span><code>您的能量额度 = (为获取 Energy 质押的 TRX / 整个网络为获取 Energy 质押的 TRX 总额) * 能量总量
+</code></pre></div>
+能量总量是一个由委员会设定的网络参数 (<a href="https://tronscan.io/#/sr/committee">#19</a>)，当前值为 180,000,000,000，可通过 TIP 修改。</p>
+<p><em><strong>计算示例</strong></em></p>
+<p>由于您的额度与全网总质押量挂钩，当其他用户质押或解押时，您的能量额度会随之变化。</p>
+<div class="highlight"><pre><span></span><code>如全网只有两个人 A，B 分别质押 2 TRX，2 TRX。
+
+二人质押获得的可用 Energy 分别是：
+
+A: 90,000,000,000
+
+B: 90,000,000,000
+
+当第三人 C 质押 1 TRX 时，三人质押获得的可用 Energy 调整为：
+
+A: 72,000,000,000
+
+B: 72,000,000,000
+
+C: 36,000,000,000
+</code></pre></div>
+<h4 id="_13">能量的消耗<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p><em><strong>能量支付优先级</strong></em>
+当一笔合约交易需要消耗能量时，系统按以下顺序支付：</p>
+<ul>
+<li><strong>消耗质押能量</strong>：优先消耗交易发起者通过质押 TRX 获得的能量。</li>
+<li><strong>燃烧 TRX 支付</strong>：如果质押获得的能量不足以支付所有指令，系统会自动开始燃烧发起者账户中的 TRX 来弥补差额，当前能量单价为 0.0001 TRX。</li>
+</ul>
+<p><em><strong>异常情况下的扣费规则</strong></em>
+合约执行可能因不同原因中断，其能量扣除规则也大不相同：</p>
+<ul>
+<li><strong>对于正常中断 (<code>REVERT</code> 指令)</strong>：
+如果合约中途由于抛出 <code>REVERT</code> 异常而退出，则仅扣除已经执行的指令所对应的能量。</li>
+<li><strong>对于意外中断 (bug 或超时)</strong>：
+如果合约因代码 bug、执行超时或其他意外错误而崩溃，系统将扣除本次交易可用的全部能量作为惩罚，用户可以通过设置交易的 <code>fee_limit</code> 参数来限定这笔交易最多可以消耗的能量费用上限。</li>
+</ul>
+<h4 id="_14">能量的恢复<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p>账户的能量资源消耗后，会在 24 小时内逐步恢复。</p>
+<p><a id="set-fee-limit"></a></p>
+<h3 id="fee_limit">如何填写 <code>fee_limit</code> (用户必读)<a class="headerlink" href="#fee_limit" title="Permanent link">&para;</a></h3>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在本节范围内，将合约的开发部署人员，简称为“开发者”；将调用合约的用户或者其他合约，简称为“调用者”。
+调用合约消耗的能量能以一定比例折合成 TRX（或者 sun），所以在本节范围内，指代合约消耗的资源时，并不严格区分 Energy 和 TRX；仅在作为数值的单位时，才区分 Energy、TRX 和 sun。</p>
+</div>
+<p><code>fee_limit</code> 是调用智能合约时一个至关重要的安全参数。合理设置 <code>fee_limit</code>，一方面能尽量保证正常执行；另外一方面，如果合约所需能量过多，又不会过多消耗调用者的 TRX。</p>
+<p>在设置 <code>fee_limit</code> 之前，需要了解几个概念：</p>
+<ol>
+<li>合法的 <code>fee_limit</code> 为 0 - 15,000,000,000 sun（折合 0 - 15,000 TRX）之间的整数。<code>fee_limit</code> 上限是一个可通过委员会提案修改的网络参数（<a href="https://tronscan.io/#/sr/committee">#47</a>），目前的值是 15,000 TRX。</li>
+<li>不同复杂度的合约，每次正常执行消耗不同的 Energy；相同合约每次消耗的能量基本相同<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>，但由于动态能量模型机制，对于热门合约，不同时刻执行时可能需要的能量不同，具体请参考 <a href="#dynamic-energy-model">动态能量模型</a> 章节；执行合约时，逐条指令计算并扣除 Energy，如果超过 <code>fee_limit</code> 的限制，则合约执行失败，已扣除的能量不退还。</li>
+<li>当前 <code>fee_limit</code> 是指调用者在执行合约时愿意支付的 TRX 上限<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>。需要注意的是，合约执行消耗的总能量，除了调用者支付的部分，也可能包含开发者为其承担的部分。</li>
+<li>一个恶意合约，如果最终执行超时，或者因 bug 合约崩溃，则会扣除当前交易允许消耗的所有 Energy。这个总能量池由以下几部分相加构成：<code>总消耗能量 = 调用者质押所得能量 + 开发者分摊能量 + 燃烧 TRX 所得能量</code>。其中，“燃烧 TRX 所得能量”的上限由 <code>fee_limit</code> 决定。</li>
+<li>开发者可以通过 <a href="https://developers.tron.network/docs/energy-consumption-mechanism#tron-energy-sharing-mechanism">能量分摊机制</a> 承担一定比例的能量消耗（比如 90%）。但是，当开发者账户的 Energy 不足以支付时，剩余部分完全由调用者承担。在 <code>fee_limit</code> 限制范围内，如调用者的 Energy 不足，则会燃烧等价值的 TRX。<sup id="fnref2:2"><a class="footnote-ref" href="#fn:2">2</a></sup></li>
+</ol>
+<p><strong>示例</strong>: 下面将以一个合约 <code>C</code> 的执行，来具体举例，如何估算 <code>fee_limit</code>：</p>
+<ul>
+<li>假设合约 <code>C</code> 上一次成功执行时，消耗了 18000 Energy。通过调用 <a href="https://developers.tron.network/reference/estimateenergy">estimateenergy</a> 接口进行预估，假设本次执行消耗的 Energy 上限约为 20,000 Energy；</li>
+<li>燃烧 TRX 时，由于能量单价目前为 100 sun，所以 10 TRX 固定可以兑换 100,000 Energy；</li>
+<li>假设开发者承诺承担 90% 的 Energy，而且开发者账户有充足的 Energy。</li>
+</ul>
+<p><code>fee_limit</code> 的估算步骤如下：</p>
+<ul>
+<li><strong>步骤 1：计算交易总费用</strong>：将预估的最高能量消耗乘以能量单价，得出交易的总费用：<code>20,000 Energy * 100 sun = 2,000,000 sun (即 2 TRX)</code></li>
+<li><strong>步骤 2：确定用户承担的份额</strong>：根据开发者承诺的承担比例（90%），计算出用户需要承担的费用比例（10%）: <code>2,000,000 sun * 10% = 200,000 sun</code></li>
+<li><strong>步骤 3：设定最终的 <code>fee_limit</code></strong>：建议用户将 <code>fee_limit</code> 设置为 200,000 sun。</li>
+</ul>
+<p><a id="energy-mechanism"></a></p>
+<h3 id="tron">TRON 网络能量消耗机制<a class="headerlink" href="#tron" title="Permanent link">&para;</a></h3>
+<h4 id="_15">基本能量消耗规则<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>在执行合约交易时，系统会逐条指令计算并扣除所需能量，账户能量的使用遵循以下优先级原则：</p>
+<ol>
+<li>优先使用账户可用能量（通过质押或租赁获得）</li>
+<li>若能量不足，不足的能量，按固定费率（0.0001 TRX / 能量）燃烧账户内的 TRX </li>
+</ol>
+<h4 id="_16">合约能量分摊机制<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p>对于合约调用，为降低调用者的成本，TRON支持合约部署者分担部分能量消耗，具体细节请参考 <a href="https://developers.tron.network/docs/energy-consumption-mechanism#tron-energy-sharing-mechanism">合约能量分摊机制</a> 章节。</p>
+<p>能量扣除规则：</p>
+<ul>
+<li>合约部署者承担部分：<ul>
+<li>直接从部署者账户的可用能量中扣除，不会燃烧部署者的TRX</li>
+</ul>
+</li>
+<li>合约调用者承担部分：<ul>
+<li>优先使用账户中的可用能量</li>
+<li>不足部分，按固定费率燃烧账户余额中的 TRX</li>
+</ul>
+</li>
+</ul>
+<p><a id="dynamic-energy-model"></a></p>
+<h2 id="_17">动态能量模型<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h2>
+<p>动态能量模型是波场网络的一个资源平衡机制，可以根据合约的资源占用情况动态调整每个合约的能量消耗量，从而使能量资源在链上的分配更加合理，防止网络资源过度集中在少数热门合约上，详情请参考 <a href="https://medium.com/tronnetwork/introduction-to-dynamic-energy-model-31917419b61a">动态能量模型介绍</a>。</p>
+<h3 id="_18">工作原理<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<p>如果合约在一个维护周期（目前是 6 小时）内使用过多的能量，则在下一个维护周期内，用户向该合约发送相同的交易将产生更多的额外能量消量。当合约合理使用资源时，用户调用该合约所产生的能量消耗将逐渐恢复正常。</p>
+<p>每一个合约有一个能量消耗放大系数 <code>energy_factor</code>，表示该智能合约交易的能量消耗相对于基础能量消耗的增加倍数，初始值是 <code>0</code>。</p>
+<ul>
+<li>合约的 <code>energy_factor</code> 为 <code>0</code> 时，表示该合约在合理的使用资源，调用该合约不会有额外的能量消耗。</li>
+<li>当 <code>energy_factor</code> 大于 <code>0</code> 时，表示该合约已经是热门合约，调用该合约时将消耗额外的能量。合约的能量消耗放大系数可以通过 <a href="https://developers.tron.network/reference/getcontractinfo">getcontractinfo</a> 接口查询。</li>
+</ul>
+<p>合约调用交易最终需要消耗的能量的计算公式为：</p>
+<div class="highlight"><pre><span></span><code>合约交易能量消耗量 = 合约调用交易产生的基础能量消耗 * （1 +  energy_factor）
+</code></pre></div>
+<p>动态能量模型引入了如下三个 TRON 网络参数，它们共同控制合约的 <code>energy_factor</code> 字段：</p>
+<ul>
+<li><code>threshold</code>：合约基础能量消耗的阈值，如果合约在一个维护周期中的基础能量消耗超过这个阈值，下一个维护周期，该合约的能量消耗量就会增加。</li>
+<li><code>increase_factor</code>：合约在某个维护周期的能量消耗超过阈值，则在下一个维护周期，<code>energy_factor</code> 就会根据 <code>increase_factor</code> 增加一定的比例。</li>
+<li><code>max_factor</code>：合约 <code>energy_factor</code> 的最大值。</li>
+</ul>
+<p>另外还有一个变量 <code>decrease_factor</code> 用于降低合约的 <code>energy_factor</code>：</p>
+<ul>
+<li><code>decrease_factor</code>：<code>increase_factor</code> 的四分之一，合约基础能耗降低到阈值以下后 <code>energy_factor</code> 会根据 <code>decrease_factor</code> 减少一定比例。</li>
+</ul>
+<p><strong><code>energy_factor</code> 调整公式</strong>：</p>
+<ul>
+<li>当合约的基础能量消耗量在一个维护周期内超过了 <code>threshold</code>，那么在下一个维护周期它的 <code>energy_factor</code> 将增加，但最大不会超过 <code>max_factor</code>，计算公式为：
+    <div class="highlight"><pre><span></span><code>energy_factor = min((1 + energy_factor) * (1 + increase_factor)-1, max_factor)
+</code></pre></div></li>
+<li>当合约的基础能量消耗量在一个维护周期内下降到 <code>threshold</code> 及以下后，那么在下一个维护周期 <code>energy_factor</code> 就会降低，但最小值不会低于 0，计算公式如下:
+    <div class="highlight"><pre><span></span><code>energy_factor = max((1 + energy_factor) * (1 - decrease_factor)- 1, 0)
+</code></pre></div></li>
+</ul>
+<p>动态能量模型在主网已经开启，当前相关参数设置如下：</p>
+<ul>
+<li><code>threshold</code>：5,000,000,000</li>
+<li><code>increase_factor</code>：0.2</li>
+<li><code>max_factor</code>：3.4</li>
+</ul>
+<p>由于热门合约在不同的维护周期的能量消耗是不一样的，所以在调用合约时要为交易设置合适的 <code>fee_limit</code> 参数。</p>
+<p><a id="staking-on-tron"></a></p>
+<h2 id="tron_1">在 TRON 网络上质押<a class="headerlink" href="#tron_1" title="Permanent link">&para;</a></h2>
+<h3 id="_19">如何质押获取系统资源<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<p>在 TRON 网络中，质押 TRX 是获取能量、带宽和投票权这三大核心资源的统一机制。</p>
+<h4 id="_20">如何执行质押<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h4>
+<ul>
+<li>通过 HTTP API：调用 <code>wallet/freezebalancev2</code> 接口。</li>
+<li>通过智能合约：在合约中调用 <a href="https://developers.tron.network/docs/stake-20-solidity-api">Stake 2.0 Solidity API</a> 完成质押操作。</li>
+</ul>
+<p>当您执行解质押操作时，对应的资源（能量/带宽）和投票权将会被同步释放和收回。</p>
+<h3 id="_21">如何代理资源<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<p>账户在通过质押获取到能量或带宽后，可以选择将其代理给其他 TRON 账户。这允许资源富余的账户帮助资源不足的账户完成交易。</p>
+<p><strong>代理规则与核心限制</strong></p>
+<p>在执行资源代理前，必须了解以下关键规则：</p>
+<ul>
+<li><strong>可代理的资源</strong>：仅限能量和带宽。投票权（TP）无法被代理。</li>
+<li><strong>资源的来源</strong>：必须是来自 Stake 2.0 质押且尚未使用的资源。</li>
+<li><strong>接收方限制</strong>：接收方必须是一个已激活的外部账户，不能是合约地址。</li>
+</ul>
+<p><strong>时间锁选项 (Time Lock Option)</strong></p>
+<p>在代理资源时，您可以选择是否启用“时间锁”，这将影响您何时能收回资源。</p>
+<ul>
+<li><strong>带时间锁</strong>：资源将被锁定，您需要在等待期后才能执行取消代理的操作。
+    <strong>重要</strong>：在此期间，如果您对同一个地址再次进行代理，等待期将重新开始计算。  </li>
+<li><strong>不带时间锁</strong>：您可以随时取消代理，立即收回资源。</li>
+</ul>
+<p><strong>相关 API 接口</strong></p>
+<ul>
+<li><code>delegateresource</code>: 执行资源代理操作。</li>
+<li><code>undelegateresource</code>: 取消资源代理（收回资源）。</li>
+<li><code>getcandelegatedmaxsize</code>: 查询您当前某种资源可供代理的最大份额。</li>
+</ul>
+<h3 id="_22">如何解质押<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<p>您可以在质押 TRX 后随时进行解质押。在调用 <code>unfreezebalancev2</code> API 发起解质押操作后，您的资金会进入一个 14 天的锁定期。此锁定期由 TRON 网络的 <a href="https://tronscan.io/#/sr/committee">#70</a> 号参数定义，未来可通过网络治理提议进行修改。14 天锁定期结束后，您便可以通过 <code>withdrawexpireunfreeze</code> API 将这笔已解质押的 TRX 提取到您的账户中。</p>
+<div class="admonition 重要提示">
+<p class="admonition-title">重要提示</p>
+<p>在执行解质押前，请务必了解以下关键限制：</p>
+<ul>
+<li><strong>已代理资源无法解质押</strong>：您不能解质押那些已代理给其他账户的资源所对应的 TRX。必须先通过 <code>undelegateresource</code> 收回已代理的资源，然后才能解质押这部分 TRX。</li>
+<li><strong>资源的回收</strong>：解质押将使得与该笔质押 TRX 对应的资源和 TRON Power (TP) 被系统同步收回。因此，您将失去相应的能量或带宽，以及等量的 TP。</li>
+<li><strong>并发操作次数限制</strong>：您最多只能同时保有 32 笔处于 14 天锁定期内的解质押操作。您可以通过 <code>getavailableunfreezecount</code> 接口查询剩余可用的解质押次数。</li>
+</ul>
+</div>
+<p><strong>解质押的自动触发效果</strong>：调用 <code>unfreezebalancev2</code> 不仅将发起解质押，系统还将自动为您提取已结束 14 天锁定期、可以自由取回的 TRX。</p>
+<p><strong>如何验证提取金额</strong>：要查询单次解质押操作具体自动提取了多少已解锁的 TRX，您可以通过 <code>gettransactioninfobyid</code> 接口查询该笔解质押交易的详情，并关注字段 <code>withdraw_expire_amount</code>。该字段显示了在本次交易中，自动提取到的已到期解质押 TRX 本金数量。</p>
+<h4 id="_23">投票权资源回收<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h4>
+<p>在 Stake 2.0 机制下，解质押 TRX 会同步回收等量的投票权（TP）。如果回收的 TP 数量超过了您账户中空闲的 TP，系统将按比例撤销您已投出的选票。</p>
+<p><em><strong>回收 TP 的优先级</strong></em>：系统回收 TP 时，遵循以下两步流程：</p>
+<ol>
+<li>优先回收空闲 TP： 
+    系统首先会回收您账户中所有未使用于投票的、空闲的投票权。</li>
+<li>按需撤销已投选票：
+    如果空闲 TP 不足以满足回收需求，系统将开始撤销您已投出的选票，以回收剩余所需 TP。</li>
+</ol>
+<p><em><strong>选票撤销的计算规则</strong></em></p>
+<p>撤销操作并非随机，而是按比例公平地从您投票给的每一个超级代表/超级代理合伙人 身上撤回选票。</p>
+<ul>
+<li><em>计算公式:</em>
+    <div class="highlight"><pre><span></span><code>从当前超级代表撤销的票数 = 总撤票数 * (给当前超级代表或超级代表合伙人的投票数 / 该账户总投票数)
+</code></pre></div></li>
+<li>
+<p><em>示例说明:</em></p>
+<p>假设用户 <code>A</code> 的账户初始状态如下：</p>
+<ul>
+<li>总质押：2,000 TRX</li>
+<li>总 TP：2,000 TP</li>
+<li>已投票数：1,000票 (其中，为 SR1 投了 600 票，为 SR2 投了 400 票)</li>
+<li>空闲 TP：1,000 TP</li>
+</ul>
+<p>现在，用户 A 执行操作：解质押 1,500 TRX。</p>
+<p><em>系统处理流程：</em></p>
+<ol>
+<li>回收需求：系统需要从 <code>A</code> 的账户中回收 1,500 TP。</li>
+<li>回收空闲 TP：首先回收全部 1,000 点空闲 TP。</li>
+<li>计算差额：仍需回收 <code>1,500 - 1,000 = 500 TP</code>。这部分必须通过撤销选票来获取。</li>
+<li>按比例撤票：</li>
+<li>从 SR1 撤销的票数 = 500 * (600 / 1000) = 300 票</li>
+<li>从 SR2 撤销的票数 = 500 * (400 / 1000) = 200 票</li>
+<li>最终结果：A 的账户成功解质押 1,500 TRX，其投票状态更新为：为 SR1 投 300 票，为 SR2 投 200 票。</li>
+</ol>
+</li>
+</ul>
+<div class="admonition 重要提示">
+<p class="admonition-title">重要提示</p>
+<p>Stake 1.0 与 Stake 2.0 的关键区别:</p>
+<p>尽管当前网络主流为 Stake 2.0，但通过 Stake 1.0 质押的 TRX 依然有效，并可通过其对应的 <code>wallet/unfreezebalance</code> 接口赎回。如果解质押 Stake 1.0 质押的 TRX，会撤销账户所有的投票。</p>
+</div>
+<h3 id="_24">如何取消全部解质押<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<p>如果您发起了 TRX 解质押但中途改变了主意，Stake 2.0 提供了一个高效的“撤销”功能。您可以使用 <code>cancelallunfreezev2</code> API 立即取消所有正在进行中的解质押，从而避免了漫长的 14 天锁定期，并可立刻获取资源。</p>
+<p><strong>请注意</strong>，调用此接口后，您账户中所有处于 14 天锁定期内、尚未完成的解质押请求都将被一次性全部撤销。</p>
+<ul>
+<li><strong>TRX 状态</strong>：这些被撤销的 TRX 将立即被重新质押。</li>
+<li><strong>资源类型</strong>：重新质押后获取的资源类型（能量或带宽）将与您最初质押时选择的类型保持一致。</li>
+</ul>
+<p><strong>附加效果 - 自动提取已到期 TRX</strong>：如果您的账户中存在任何已经完成 14 天锁定期、正等待提取的解质押 TRX，本次操作会将这部分资金自动提取到您的账户余额中。</p>
+<p><strong>如何验证操作结果</strong></p>
+<p>您可以通过 <code>gettransactioninfobyid</code> 接口查询该笔交易的详情，并重点关注以下两个字段：</p>
+<ul>
+<li><code>cancel_unfreezeV2_amount</code>:
+该字段显示了本次操作中，被成功取消并重新用于质押的 TRX 总额。</li>
+<li><code>withdraw_expire_amount</code>:
+该字段显示了本次操作中，被自动提取到您账户余额中的、已到期的解质押 TRX 总额。</li>
+</ul>
+<h3 id="_25">取消资源代理时的资源回收<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<p><strong>说明</strong>：由于在 TRON 网络中，账户获得的资源数量取决于其 TRX 质押量 在全网总质押量中的占比。当代理方将资源代理给被代理方时，本质上是将其自身质押的一定数量的 TRX 份额借给被代理方。在计算资源配额时，系统对 TRX 的来源不作区分。账户<strong>自持质押</strong>与<strong>接收代理</strong>的 TRX 将被合并统计，统一作为获取资源的权重基数。因此，本章节所称“质押数额”除另有说明外，均指该账户的质押总额（含自身质押及他人代理），不再对其来源进行区分。</p>
+<p>当代理方发起资源代理时，会将一定数量的 TRX 质押份额借给被代理方，使其获得相应资源的使用权；当代理方执行取消资源代理操作时，系统不仅收回对应的 TRX 质押份额，同时会按比例回收被代理方账户中的未恢复资源。</p>
+<h4 id="_26">未恢复资源的回收逻辑<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h4>
+<h5 id="1">1. 计算公式<a class="headerlink" href="#1" title="Permanent link">&para;</a></h5>
+<p>系统会根据取消代理的 TRX 数额，按比例回收被代理方账户中尚未恢复的资源。计算公式：</p>
+<p><div class="highlight"><pre><span></span><code>回收的未恢复资源数量 = (取消代理的 TRX 数额 / 被代理方该资源的总质押数额) * 被代理方的未恢复资源量
+</code></pre></div>
+<strong>注意</strong>：回收的未恢复资源数量，不得超过本次取消代理的 TRX 数量按当前全网实时质押量计算出的最大资源容量。</p>
+<ul>
+<li><strong>取消代理的 TRX 数额</strong>：在取消资源代理交易中，回收的 TRX 质押额度。</li>
+<li><strong>被代理方该资源的总质押数额</strong>：指被代理方持有的某项资源（能量或带宽）的质押总量（Stake 1.0 和 Stake 2.0 自身质押以及他人代理总和）。可通过 <a href="https://developers.tron.network/reference/account-getaccount#/">wallet/getaccount</a> 接口查询。</li>
+<li><strong>被代理方的未恢复资源量</strong>：指被代理方账户中当前已消耗且正在处于恢复周期内的资源数量。可通过 <a href="https://developers.tron.network/reference/account-getaccount#/">wallet/getaccount</a> 或 <a href="https://developers.tron.network/reference/getaccountresource#/">wallet/getaccountresource</a> 接口查询。</li>
+</ul>
+<h5 id="2">2.账户状态变化<a class="headerlink" href="#2" title="Permanent link">&para;</a></h5>
+<p>取消资源代理完成后，双方账户在资源相关的有效状态上将发生如下变化。
+以下表达仅用于描述逻辑层面的变化关系，其中“质押数额”为计算概念，并不对应链上的某一具体字段。</p>
+<p><strong>代理方</strong></p>
+<div class="highlight"><pre><span></span><code>质押数额 = 原质押数额 + 取消代理的 TRX 数额
+
+未恢复资源量 = 原未恢复资源量 + 回收的未恢复资源量
+</code></pre></div>
+<p><strong>被代理方</strong></p>
+<div class="highlight"><pre><span></span><code>质押数额 = 原质押数额 - 取消代理的 TRX 数额
+
+未恢复资源量 = 原未恢复资源量 - 回收的未恢复资源量
+</code></pre></div>
+<p><strong>注意：</strong> 资源被消耗后会在 24 小时内匀速线性地恢复。如果在恢复期间，账户再次使用资源或收回代理资源，系统会将原有的恢复进度与新的恢复周期进行加权合并。</p>
+<h4 id="_27">示例<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h4>
+<p>假设当前全网资源倍率为：1 TRX 质押量 = 0.2 Energy，并且全网的质押总量不变。用户 X 将其持有的 200 TRX 额度的能量代理给了用户 Y。在用户 X 取消代理操作前，两个账户的状态如下：</p>
+<table>
+<thead>
+<tr>
+<th>账户</th>
+<th>角色</th>
+<th>总质押数额（为获取能量）</th>
+<th>能量总量</th>
+<th>未恢复的能量数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>代理方</td>
+<td>1000 TRX</td>
+<td>200 Energy</td>
+<td>75 Energy</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>被代理方</td>
+<td>500 TRX</td>
+<td>100 Energy</td>
+<td>50 Energy</td>
+</tr>
+</tbody>
+</table>
+<p>当用户 X 取消对 用户 Y 的 200 TRX 的能量代理时：</p>
+<p><div class="highlight"><pre><span></span><code>回收的未恢复能量数量 = (200 / 500) * 50 = 20 Energy
+</code></pre></div>
+回收后，各账户的状态：</p>
+<table>
+<thead>
+<tr>
+<th>账户</th>
+<th>身份</th>
+<th>总质押数额（为获取能量）</th>
+<th>能量总量</th>
+<th>未恢复的能量数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>代理方</td>
+<td>1200 TRX（1000 + 200 ）</td>
+<td>240 Energy</td>
+<td>95 Energy（ 75 + 20 ）</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>被代理方</td>
+<td>300 TRX（500 - 200）</td>
+<td>60 Energy</td>
+<td>30 Energy（ 50 -20 ）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="api">相关 API 接口<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
+<p>下表为质押模型相关接口及其说明：</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>wallet/freezebalancev2</code></td>
+<td>质押</td>
+</tr>
+<tr>
+<td><code>wallet/unfreezebalancev2</code></td>
+<td>解质押</td>
+</tr>
+<tr>
+<td><code>wallet/delegateresource</code></td>
+<td>资源代理</td>
+</tr>
+<tr>
+<td><code>wallet/undelegateresource</code></td>
+<td>取消资源代理</td>
+</tr>
+<tr>
+<td><code>wallet/withdrawexpireunfreeze</code></td>
+<td>提取已过锁定期的解质押 TRX</td>
+</tr>
+<tr>
+<td><code>wallet/getavailableunfreezecount</code></td>
+<td>查看剩余解质押次数</td>
+</tr>
+<tr>
+<td><code>wallet/getcanwithdrawunfreezeamount</code></td>
+<td>查看可提取的已过锁定期的解质押 TRX</td>
+</tr>
+<tr>
+<td><code>wallet/getcandelegatedmaxsize</code></td>
+<td>查看可代理的资源份额数量</td>
+</tr>
+<tr>
+<td><code>wallet/getdelegatedresourcev2</code></td>
+<td>查看某地址代理给目标地址的资源情况</td>
+</tr>
+<tr>
+<td><code>wallet/getdelegatedresourceaccountindexv2</code></td>
+<td>查看某地址资源代理情况与资源被代理情况</td>
+</tr>
+<tr>
+<td><code>wallet/getaccount</code></td>
+<td>查看账户质押情况、资源份额、解质押情况、投票情况</td>
+</tr>
+<tr>
+<td><code>wallet/getaccountresource</code></td>
+<td>查看资源总量、已使用量、可用数量</td>
+</tr>
+<tr>
+<td><code>wallet/cancelallunfreezev2</code></td>
+<td>取消全部解质押</td>
+</tr>
+</tbody>
+</table>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>若开发者不确定合约是否正常，请勿将用户承担比例设置为 0%，否则在被判为恶意执行时，会扣除开发者的所有 Energy。&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>因此建议开发者设置的用户承担的比例为 10%~100%。&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+		  <hr class="content-footer-divider">  <!-- 添加的水平线 -->
+      	    	  <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../account/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 账户模型">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                账户模型
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../contracts/contract/" class="md-footer__link md-footer__link--next" aria-label="Next: 智能合约">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                智能合约
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <!--div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div-->
+</footer>
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.sections", "navigation.footer", "toc.integrate", "search.highlight", "search.suggest", "content.code.annotate", "content.tooltips"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../javascripts/toc.js"></script>
+      
+        <script src="../../javascripts/nav-toc.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+      
+    
+  </body>
+</html>
