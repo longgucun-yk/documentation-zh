@@ -1,6 +1,6 @@
 site_name: java-tron
-site_url: https://tronprotocol.github.io/documentation-zh/
-repo_url: https://github.com/tronprotocol/documentation-zh
+site_url: https://longgucun-yk.github.io/documentation-zh/
+repo_url: https://github.com/longgucun-yk/documentation-zh
 
 nav:
     - Home: index.md
