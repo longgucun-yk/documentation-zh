@@ -223,6 +223,12 @@
       var src = document.createElement('div');
       src.className = 'qa-sources';
       src.innerHTML = 'Sources: ' + sources.map(function (s) {
+        if (typeof s === 'object' && s !== null) {
+          var label = escapeHTML(s.header || s.source || 'link');
+          return s.url
+            ? '<span><a href="' + escapeHTML(s.url) + '" target="_blank" rel="noopener">' + label + '</a></span>'
+            : '<span>' + label + '</span>';
+        }
         return '<span>' + escapeHTML(String(s)) + '</span>';
       }).join('');
       div.appendChild(src);
